@@ -8,13 +8,13 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import EditProfile from './pages/EditProfile';
+import EditPost from './pages/EditPost';
 import Upload from './pages/Upload';
 import NotFound from './pages/NotFound';
 import Post from './pages/Post';
 import UnderConstruction from './pages/UnderConstruction';
 import Navigation from './components/Navigation';
 import ProtectRoute from './components/ProtectRoute';
-import CreatingAnItem from './components/CreatingAnItem';
 import SignedProvider from './context/SignedContext';
 
 function App() {
@@ -28,12 +28,16 @@ function App() {
             <Route path="/profile/:profileid" element={<Profile />} />
           </Route>
 
-          <Route path="/edit-profile" element={<ProtectRoute />}>
-            <Route path="/edit-profile" element={<UnderConstruction />} />
+          <Route path="/edit-profile/:profileId" element={<ProtectRoute />}>
+            <Route path="/edit-profile/:profileId" element={<EditProfile />} />
           </Route>
 
           <Route path="/upload" element={<ProtectRoute />}>
             <Route path="/upload" element={<Upload />} />
+          </Route>
+
+          <Route path="/edit-moment/:postId" element={<ProtectRoute />}>
+            <Route path="/edit-moment/:postId" element={<EditPost />} />
           </Route>
           {/* Protected Routes */}
 
@@ -41,7 +45,6 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/create-item" element={<CreatingAnItem />} />
           <Route path="/moment/:id" element={<Post />} />
 
           <Route path="/under-construction" element={<UnderConstruction />} />

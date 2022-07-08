@@ -58,7 +58,7 @@ function Profile() {
         {authorized ? (
           <div className="flex space-x-4 mb-12">
             <Link
-              to="/edit-profile"
+              to={`/edit-profile/${params.profileid}`}
               className="rounded-sm shadow-sm bg-gray-200 px-2 py-1 hover:bg-gray-300 duration-150 flex items-center space-x-2"
             >
               <span>Edit Profile</span>

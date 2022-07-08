@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import firestoreDB from '../firebase.config';
 import { getDoc, doc, deleteDoc } from 'firebase/firestore';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -7,16 +7,16 @@ import CommentsList from '../components/CommentsList';
 import CommentForm from '../components/CommentForm';
 import { auth } from '../firebase.config';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
+import { SignedContext } from '../context/SignedContext';
 
 function Post() {
-  // TODO: Edit post
-  // TODO: Edit comments
-
+  const [user, setUser] = useState(null);
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [authorized, setAuthorized] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
+  const { signedIn } = useContext(SignedContext);
 
   // FETCH POST
   useEffect(() => {
@@ -24,9 +24,14 @@ function Post() {
       const docRef = doc(firestoreDB, 'posts', params.id);
       const docSnap = await getDoc(docRef);
       setPost({ id: docSnap.id, data: docSnap.data() });
+      // Get user
+      const userRef = doc(firestoreDB, 'users', docSnap.data().userId);
+      const userSnap = await getDoc(userRef);
+      setUser(userSnap.data());
+
       setLoading(false);
 
-      if (auth.currentUser.uid === docSnap.data().userId) setAuthorized(true);
+      if (auth.currentUser?.uid === docSnap.data().userId) setAuthorized(true);
     };
 
     fetchPost();
@@ -58,7 +63,7 @@ function Post() {
           {authorized ? (
             <div className="flex justify-end mb-2 space-x-4">
               <Link
-                to="/edit-post/:postId"
+                to={`/edit-moment/${post.id}`}
                 onClick={onDelete}
                 className="hover:text-pTeal-200 text-xl"
               >
@@ -80,7 +85,7 @@ function Post() {
             to={`/profile/${post.data.userId}`}
             className="text-lg mb-2 text-gray-500 inline-block"
           >
-            @{post.data.username}
+            @{user.name}
           </Link>
 
           <div className="h-0.5 w-1/3 bg-gray-200 mb-3"></div>
@@ -88,7 +93,7 @@ function Post() {
 
           {/* Comments section */}
           <CommentsList postId={params.id} />
-          <CommentForm postId={params.id} />
+          {signedIn ? <CommentForm postId={params.id} /> : null}
         </div>
       </div>
     </div>

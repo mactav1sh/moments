@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import firestoreDB from '../firebase.config';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import CommentItem from './CommentItem';
 
 function CommentsList({ postId }) {
   const [comments, setComments] = useState([]);
+  // TODO: MAKE COMMENTS RELOAD ON ANY CHANGE
+  // YOU CAN USE CONTEXT
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -24,6 +26,7 @@ function CommentsList({ postId }) {
       querySnap.forEach((doc) =>
         commentsArr.push({ id: doc.id, data: doc.data() })
       );
+
       setComments(commentsArr);
     };
 
@@ -40,7 +43,7 @@ function CommentsList({ postId }) {
 
         {/* Comments */}
         {comments.length > 0 ? (
-          <div className="h-40 overflow-auto">
+          <div className="h-60 overflow-auto">
             {comments.length > 0
               ? comments.map((comment) => {
                   return <CommentItem comment={comment} key={comment.id} />;

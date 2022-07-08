@@ -20,7 +20,6 @@ function CommentForm({ postId }) {
         text,
         postId: postId,
         userId: auth.currentUser.uid,
-        username: auth.currentUser.displayName,
         timestamp: serverTimestamp(),
       };
 

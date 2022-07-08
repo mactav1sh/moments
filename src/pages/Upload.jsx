@@ -42,7 +42,6 @@ function Upload() {
         private: formData.private,
         timestamp: serverTimestamp(),
         userId: auth.currentUser.uid,
-        username: auth.currentUser.displayName,
         imageUrl,
       };
 
@@ -53,7 +52,7 @@ function Upload() {
       await addDoc(collectionRef, docData);
 
       setLoading(false);
-      // navigate('/');
+      navigate('/');
       toast.success('image posted successfully');
     } catch (err) {
       toast.error(err.message);
