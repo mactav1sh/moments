@@ -16,42 +16,48 @@ import UnderConstruction from './pages/UnderConstruction';
 import Navigation from './components/Navigation';
 import ProtectRoute from './components/ProtectRoute';
 import SignedProvider from './context/SignedContext';
+import LoadingProvider from './context/LoadingContext';
 
 function App() {
   return (
     <Router>
       <SignedProvider>
-        <Navigation />
-        <Routes>
-          {/* Protected Routes */}
-          <Route path="/profile/:profileid" element={<ProtectRoute />}>
-            <Route path="/profile/:profileid" element={<Profile />} />
-          </Route>
+        <LoadingProvider>
+          <Navigation />
+          <Routes>
+            {/* Protected Routes */}
+            <Route path="/profile/:profileid" element={<ProtectRoute />}>
+              <Route path="/profile/:profileid" element={<Profile />} />
+            </Route>
 
-          <Route path="/edit-profile/:profileId" element={<ProtectRoute />}>
-            <Route path="/edit-profile/:profileId" element={<EditProfile />} />
-          </Route>
+            <Route path="/edit-profile/:profileId" element={<ProtectRoute />}>
+              <Route
+                path="/edit-profile/:profileId"
+                element={<EditProfile />}
+              />
+            </Route>
 
-          <Route path="/upload" element={<ProtectRoute />}>
-            <Route path="/upload" element={<Upload />} />
-          </Route>
+            <Route path="/upload" element={<ProtectRoute />}>
+              <Route path="/upload" element={<Upload />} />
+            </Route>
 
-          <Route path="/edit-moment/:postId" element={<ProtectRoute />}>
-            <Route path="/edit-moment/:postId" element={<EditPost />} />
-          </Route>
-          {/* Protected Routes */}
+            <Route path="/edit-moment/:postId" element={<ProtectRoute />}>
+              <Route path="/edit-moment/:postId" element={<EditPost />} />
+            </Route>
+            {/* Protected Routes */}
 
-          <Route path="/" element={<Home />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/moment/:id" element={<Post />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/moment/:id" element={<Post />} />
 
-          <Route path="/under-construction" element={<UnderConstruction />} />
+            <Route path="/under-construction" element={<UnderConstruction />} />
 
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-        <ToastContainer />
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+          <ToastContainer />
+        </LoadingProvider>
       </SignedProvider>
     </Router>
   );

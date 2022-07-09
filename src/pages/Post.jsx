@@ -8,6 +8,7 @@ import CommentForm from '../components/CommentForm';
 import { auth } from '../firebase.config';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import { SignedContext } from '../context/SignedContext';
+import Comments from '../components/Comments';
 
 function Post() {
   const [user, setUser] = useState(null);
@@ -50,15 +51,15 @@ function Post() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-beige-200">
-      <div className="flex flex-col max-w-6xl bg-beige-100 shadow-lg md:flex-row my-10">
+      <div className="flex flex-col max-w-6xl bg-beige-100 shadow-lg md:flex-row my-10 mx-2 flex-wrap">
         {/* IMAGE */}
         <img
           src={post.data.imageUrl}
           alt={post.data.title}
-          className="max-w-sm mb-5 md:mb-0"
+          className="mb-5 md:mb-0 md:max-w-xs lg:max-w-md"
         />
 
-        <div className="px-8 pb-9 w-96 md:mt-10">
+        <div className="px-8 pb-9 md:w-96 md:mt-10">
           {/* Modify and delete - only if authorized */}
           {authorized ? (
             <div className="flex justify-end mb-2 space-x-4">
@@ -92,8 +93,9 @@ function Post() {
           <p className="text-xl mb-10">{post.data.description} </p>
 
           {/* Comments section */}
-          <CommentsList postId={params.id} />
-          {signedIn ? <CommentForm postId={params.id} /> : null}
+          <Comments postId={params.id} />
+          {/* <CommentsList postId={params.id} />
+          {signedIn ? <CommentForm postId={params.id} /> : null} */}
         </div>
       </div>
     </div>

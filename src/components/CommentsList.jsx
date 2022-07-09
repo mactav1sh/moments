@@ -3,35 +3,33 @@ import firestoreDB from '../firebase.config';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import CommentItem from './CommentItem';
 
-function CommentsList({ postId }) {
-  const [comments, setComments] = useState([]);
-  // TODO: MAKE COMMENTS RELOAD ON ANY CHANGE
-  // YOU CAN USE CONTEXT
+function CommentsList({ postId, comments }) {
+  // const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      // Create collection ref
-      const commentsRef = collection(firestoreDB, 'comments');
-      // Creating Query
-      const q = query(
-        commentsRef,
-        where('postId', '==', postId),
-        orderBy('timestamp')
-      );
+  // useEffect(() => {
+  //   const fetchComments = async () => {
+  //     // Create collection ref
+  //     const commentsRef = collection(firestoreDB, 'comments');
+  //     // Creating Query
+  //     const q = query(
+  //       commentsRef,
+  //       where('postId', '==', postId),
+  //       orderBy('timestamp')
+  //     );
 
-      const commentsArr = [];
-      // Getting data from firebase
-      const querySnap = await getDocs(q);
-      // Adding data to posts array and saving to states
-      querySnap.forEach((doc) =>
-        commentsArr.push({ id: doc.id, data: doc.data() })
-      );
+  //     const commentsArr = [];
+  //     // Getting data from firebase
+  //     const querySnap = await getDocs(q);
+  //     // Adding data to posts array and saving to states
+  //     querySnap.forEach((doc) =>
+  //       commentsArr.push({ id: doc.id, data: doc.data() })
+  //     );
 
-      setComments(commentsArr);
-    };
+  //     setComments(commentsArr);
+  //   };
 
-    fetchComments();
-  }, [postId]);
+  //   fetchComments();
+  // }, [postId]);
 
   return (
     <>

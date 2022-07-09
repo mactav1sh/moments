@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import firestoreDB, { auth } from '../firebase.config';
 import { doc, deleteDoc, getDoc } from 'firebase/firestore';
-import { AiOutlineEdit } from 'react-icons/ai';
+// import { AiOutlineEdit } from 'react-icons/ai';
 import { TiTimesOutline } from 'react-icons/ti';
+import { useNavigate } from 'react-router-dom';
 
 function CommentItem({ comment }) {
   const [authorized, setAuthorized] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fullDate = new Date(comment.data.timestamp.seconds * 1000)
+  const navigate = useNavigate();
+
+  const fullDate = new Date(comment?.data.timestamp.seconds * 1000)
     .toLocaleString()
     .split(', ');
   const [date, time] = fullDate;
 
   useEffect(() => {
-    if (auth.currentUser?.uid === comment.data.userId) setAuthorized(true);
+    if (auth.currentUser?.uid === comment?.data.userId) setAuthorized(true);
   }, [comment.data.userId]);
 
   useEffect(() => {
@@ -33,9 +36,7 @@ function CommentItem({ comment }) {
     const isSure = window.confirm('Are you sure you want to delete ?');
     if (isSure) {
       await deleteDoc(docRef);
-
-      // Temp fix for realtime comments updates TODO: REMOVE IT
-      // window.location.reload();
+      navigate('/');
     }
   };
 

@@ -40,7 +40,7 @@ function Profile() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-beige-200">
-      <div className="flex flex-col items-center max-w-6xl bg-beige-100 shadow-lg px-10 py-10 min-w-[28rem] mt-10">
+      <div className="flex flex-col items-center max-w-6xl bg-beige-100 shadow-lg px-10 py-10 mx-2 md:min-w-[28rem] mt-10">
         {/* Profile image */}
         <div className="h-32 w-32 rounded-full flex items-center justify-center mb-8 bg-blue-100">
           <p className="uppercase text-5xl">{profile.data.name.slice(0, 1)}</p>

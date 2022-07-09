@@ -28,7 +28,7 @@ function Navigation() {
           </span>
         </Link>
         <ul>
-          <div className="flex space-x-4 md:text-lg">
+          <div className="flex space-x-3 md:text-lg uppercase tracking-wide">
             {signedIn ? (
               <>
                 <li>
