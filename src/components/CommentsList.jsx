@@ -45,7 +45,6 @@ function CommentsList({ postId }) {
           <div className="h-60 overflow-auto">
             {comments.length > 0
               ? comments.map((comment) => {
-                  console.log(comment);
                   return <CommentItem comment={comment} key={comment.id} />;
                 })
               : null}
