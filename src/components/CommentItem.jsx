@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import firestoreDB, { auth } from '../firebase.config';
-import { doc, deleteDoc, getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 // import { AiOutlineEdit } from 'react-icons/ai';
 import { TiTimesOutline } from 'react-icons/ti';
-import { useNavigate } from 'react-router-dom';
+import { CommentsContext } from '../context/CommentsContext';
 
 function CommentItem({ comment }) {
+  const [loadUser, setLoadUser] = useState(true);
   const [authorized, setAuthorized] = useState(false);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const navigate = useNavigate();
+  const { deleteComment } = useContext(CommentsContext);
 
   const fullDate = new Date(comment?.data.timestamp.seconds * 1000)
     .toLocaleString()
@@ -26,34 +25,37 @@ function CommentItem({ comment }) {
       const userRef = doc(firestoreDB, 'users', comment.data.userId);
       const userSnap = await getDoc(userRef);
       setUser(userSnap.data());
-      setLoading(false);
+      setLoadUser(false);
     };
     fetchPost();
   }, [comment.data.userId]);
 
-  const onDelete = async (commentId) => {
-    const docRef = doc(firestoreDB, 'comments', commentId);
-    const isSure = window.confirm('Are you sure you want to delete ?');
-    if (isSure) {
-      await deleteDoc(docRef);
-      navigate('/');
-    }
+  const onDelete = (commentId) => {
+    deleteComment(commentId);
   };
 
   // const onEdit = async (commentId) => {
   //   setDisabled(false);
   // };
 
-  if (loading) return <p>Loading...</p>;
-
+  if (loadUser)
+    return (
+      <p className="text-center text-gray-400 animate-pulse">Loading...</p>
+    );
   return (
     <div className="border-b pr-1 pb-1 mb-3 break-words relative">
       <p className="text-teal-700 text-sm mb-1">@{user.name}</p>
       <p className="max-w-xs">{comment.data.text}</p>
 
       <div className="flex space-x-2 text-xs justify-end mt-2 mr-2 text-gray-500">
-        <span>{time}</span>
-        <span>{date}</span>
+        {!time || !date ? (
+          <span>Just now</span>
+        ) : (
+          <>
+            <span>{time}</span>
+            <span>{date}</span>
+          </>
+        )}
       </div>
       {/* EDIT AND DELETE */}
 

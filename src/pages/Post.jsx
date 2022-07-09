@@ -8,7 +8,6 @@ import CommentForm from '../components/CommentForm';
 import { auth } from '../firebase.config';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import { SignedContext } from '../context/SignedContext';
-import Comments from '../components/Comments';
 
 function Post() {
   const [user, setUser] = useState(null);
@@ -93,9 +92,8 @@ function Post() {
           <p className="text-xl mb-10">{post.data.description} </p>
 
           {/* Comments section */}
-          <Comments postId={params.id} />
-          {/* <CommentsList postId={params.id} />
-          {signedIn ? <CommentForm postId={params.id} /> : null} */}
+          <CommentsList postId={params.id} />
+          {signedIn ? <CommentForm postId={params.id} /> : null}
         </div>
       </div>
     </div>

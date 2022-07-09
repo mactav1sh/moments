@@ -1,11 +1,13 @@
 import { useState, useContext } from 'react';
-import firestoreDB, { auth } from '../firebase.config';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { loadingContext } from '../context/LoadingContext';
+import { auth } from '../firebase.config';
+import { serverTimestamp } from 'firebase/firestore';
+import { CommentsContext } from '../context/CommentsContext';
+import { toast } from 'react-toastify';
 
-function CommentForm({ postId, fetchComments }) {
+function CommentForm({ postId }) {
   const [text, setText] = useState('');
   const [disabled, setDisabled] = useState(false);
+  const { addComment } = useContext(CommentsContext);
 
   const onChange = (e) => {
     setText(e.target.value);
@@ -15,8 +17,6 @@ function CommentForm({ postId, fetchComments }) {
     e.preventDefault();
     try {
       setDisabled(true);
-      const commentsRef = collection(firestoreDB, 'comments');
-
       const docData = {
         text,
         postId: postId,
@@ -24,13 +24,11 @@ function CommentForm({ postId, fetchComments }) {
         timestamp: serverTimestamp(),
       };
 
-      await addDoc(commentsRef, docData);
-
+      addComment(docData);
       setText('');
       setDisabled(false);
-      fetchComments();
     } catch (error) {
-      console.log(error);
+      toast.error('Some error happened, please try again');
     }
   };
 

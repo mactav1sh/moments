@@ -16,13 +16,13 @@ import UnderConstruction from './pages/UnderConstruction';
 import Navigation from './components/Navigation';
 import ProtectRoute from './components/ProtectRoute';
 import SignedProvider from './context/SignedContext';
-import LoadingProvider from './context/LoadingContext';
+import CommentsProvider from './context/CommentsContext';
 
 function App() {
   return (
     <Router>
       <SignedProvider>
-        <LoadingProvider>
+        <CommentsProvider>
           <Navigation />
           <Routes>
             {/* Protected Routes */}
@@ -57,7 +57,7 @@ function App() {
             <Route path="/*" element={<NotFound />} />
           </Routes>
           <ToastContainer />
-        </LoadingProvider>
+        </CommentsProvider>
       </SignedProvider>
     </Router>
   );
