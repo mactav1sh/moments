@@ -11,10 +11,21 @@ function CommentItem({ comment }) {
   const [user, setUser] = useState(null);
   const { deleteComment } = useContext(CommentsContext);
 
-  const fullDate = new Date(comment?.data.timestamp.seconds * 1000)
-    .toLocaleString()
-    .split(', ');
-  const [date, time] = fullDate;
+  // const fullDate = new Date(comment?.data.timestamp.seconds * 1000)
+  //   .toLocaleString()
+  //   .split(', ');
+  // const [date, time] = fullDate;
+
+  const date = new Date(
+    comment?.data.timestamp.seconds * 1000
+  ).toLocaleDateString();
+
+  const time = new Date(
+    comment?.data.timestamp.seconds * 1000
+  ).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
   useEffect(() => {
     if (auth.currentUser?.uid === comment?.data.userId) setAuthorized(true);

@@ -6,8 +6,6 @@ import firestoreDB, { auth } from '../firebase.config';
 import { updateDoc, doc, getDoc } from 'firebase/firestore';
 
 function EditPost() {
-  // TODO: Add  with useffect
-
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -50,7 +48,7 @@ function EditPost() {
       navigate(`/moment/${params.postId}`);
       toast.success('image updated successfully');
     } catch (err) {
-      toast.error(err.message);
+      toast.error('Some error happened please try again');
     }
   };
 

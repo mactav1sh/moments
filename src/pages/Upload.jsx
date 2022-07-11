@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 function Upload() {
-  const [imageUrl, setImageUrl] = useState(null);
+  // const [imageUrl, setImageUrl] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -33,7 +33,7 @@ function Upload() {
       // 2. Upload Image and get the image url
       const snapshot = await uploadBytes(fileRef, formData.image);
       const imageUrl = await getDownloadURL(snapshot.ref);
-      setImageUrl(imageUrl);
+      // setImageUrl(imageUrl);
 
       // 3. Create the Document to be uploaded
       const docData = {
@@ -107,12 +107,14 @@ function Upload() {
               ) : null} */}
 
               <input
+                required
                 onChange={onInputChange}
-                value={formData.email}
+                value={formData.title}
                 id="title"
                 type="text"
                 placeholder="Title"
                 className="py-1 text-sm bg-beige-100 border-b border-pTeal-200  focus:outline-none"
+                maxLength="15"
               />
 
               <textarea
@@ -122,6 +124,7 @@ function Upload() {
                 id="description"
                 placeholder="Description"
                 className=" text-sm bg-beige-100 border-b border-pTeal-200 focus:outline-none"
+                maxLength="40"
               />
             </div>
 

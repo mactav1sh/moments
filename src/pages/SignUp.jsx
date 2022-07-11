@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import firestoreDB, { auth } from '../firebase.config';
@@ -33,7 +32,7 @@ function SignUp() {
       const docRef = doc(firestoreDB, 'users', user.uid);
       await setDoc(docRef, {
         email: user.email,
-        name: user.displayName.toLowerCase(),
+        name: user.displayName.toLowerCase().trim(),
         createdAt: serverTimestamp(),
       });
 
@@ -75,6 +74,7 @@ function SignUp() {
                 type="text"
                 placeholder="Username"
                 className="py-1 text-sm bg-beige-100 border-b border-pTeal-200 focus:outline-none"
+                maxLength="15"
               />
 
               <input

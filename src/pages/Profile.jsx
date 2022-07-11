@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SignedContext } from '../context/SignedContext';
 import { FaSignOutAlt, FaUserEdit } from 'react-icons/fa';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import firestoreDB from '../firebase.config';
 import Loader from '../components/Loader';
+import UploadList from '../components/UploadList';
 
 function Profile() {
   const [loading, setLoading] = useState(true);
@@ -40,7 +41,7 @@ function Profile() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-beige-200">
-      <div className="flex flex-col items-center max-w-6xl bg-beige-100 shadow-lg px-10 py-10 mx-2 md:min-w-[28rem] mt-10">
+      <div className="flex flex-col items-center max-w-6xl bg-beige-100 shadow-lg px-10 py-10 mx-2 min-w-[90vw] md:min-w-[28rem] mt-10">
         {/* Profile image */}
         <div className="h-32 w-32 rounded-full flex items-center justify-center mb-8 bg-blue-100">
           <p className="uppercase text-5xl">{profile.data.name.slice(0, 1)}</p>
@@ -68,7 +69,7 @@ function Profile() {
               onClick={onLogout}
               className="flex items-center space-x-1 hover:text-gray-400 duration-200 "
             >
-              <span>Logout</span>
+              <span>Sign Out</span>
               <FaSignOutAlt className="text-sm" />
             </button>
           </div>
@@ -86,7 +87,9 @@ function Profile() {
           >
             Uploaded
           </p>
-          <p
+
+          {/* TODO: IMPLEMENT SAVED FEATURE */}
+          {/* <p
             onClick={() => setSelected('saved')}
             className={`font-semibold text-lg cursor-pointer hover:bg-gray-200 p-2 pt-3 rounded-sm transition-colors duration-150 ${
               selected === 'saved'
@@ -95,9 +98,15 @@ function Profile() {
             }`}
           >
             Saved
-          </p>
+          </p> */}
         </div>
-        <p className="mt-4">Will be implemented soon !</p>
+
+        {/* {selected === 'uploaded' ? (
+          <UploadList />
+          ) : (
+            <p className="mt-4">Will be implemented soon !</p>
+          )} */}
+        <UploadList />
       </div>
     </div>
   );

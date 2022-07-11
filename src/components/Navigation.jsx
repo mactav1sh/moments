@@ -1,27 +1,24 @@
 import { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { IoDiamondSharp } from 'react-icons/io5';
 import { SignedContext } from '../context/SignedContext';
 import { auth } from '../firebase.config';
 
 function Navigation() {
+  // const [selected, setSelected] = useState('/');
   const { signedIn } = useContext(SignedContext);
 
-  const [selected, setSelected] = useState('/');
+  const location = useLocation();
 
-  const selectedRoute = (route) => {
-    if (selected === route)
+  const matchRoute = (route) => {
+    if (location.pathname.startsWith(`/${route}`))
       return 'text-pTeal-200 border-b-2 border-pTeal-100 cursor-default';
   };
 
   return (
     <nav>
       <div className="flex h-12 px-3 justify-between items-center bg-beige-100 md:px-5 md:h-14">
-        <Link
-          to="/"
-          className="text-pTeal-200 flex space-x-2"
-          onClick={() => setSelected('/')}
-        >
+        <Link to="/" className="text-pTeal-200 flex space-x-2">
           <IoDiamondSharp className="text-3xl md:text-4xl" />
           <span className="text-xl font-bold tracking-wider uppercase md:text-2xl">
             Moments
@@ -34,8 +31,7 @@ function Navigation() {
                 <li>
                   <Link
                     to={`/profile/${auth.currentUser.uid}`}
-                    onClick={() => setSelected('profile')}
-                    className={`duration-150 transition-colors hover:text-pTeal-200 ${selectedRoute(
+                    className={`duration-150 transition-colors hover:text-pTeal-200 ${matchRoute(
                       'profile'
                     )}`}
                   >
@@ -45,8 +41,7 @@ function Navigation() {
                 <li>
                   <Link
                     to="/upload"
-                    onClick={() => setSelected('upload')}
-                    className={`duration-150 transition-colors hover:text-pTeal-200 ${selectedRoute(
+                    className={`duration-150 transition-colors hover:text-pTeal-200 ${matchRoute(
                       'upload'
                     )}`}
                   >
@@ -59,8 +54,7 @@ function Navigation() {
                 <li>
                   <Link
                     to="/sign-in"
-                    onClick={() => setSelected('sign-in')}
-                    className={`duration-150 transition-colors hover:text-pTeal-200 ${selectedRoute(
+                    className={`duration-150 transition-colors hover:text-pTeal-200 ${matchRoute(
                       'sign-in'
                     )}`}
                   >
@@ -70,8 +64,7 @@ function Navigation() {
                 <li>
                   <Link
                     to="/sign-up"
-                    onClick={() => setSelected('sign-up')}
-                    className={`duration-150 transition-colors hover:text-pTeal-200 ${selectedRoute(
+                    className={`duration-150 transition-colors hover:text-pTeal-200 ${matchRoute(
                       'sign-up'
                     )}`}
                   >

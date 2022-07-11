@@ -5,12 +5,18 @@ import firestoreDB from '../firebase.config';
 import { doc, getDoc } from 'firebase/firestore';
 
 function PostItem({ post, id }) {
-  const { title, userId, description, imageUrl } = post;
+  const { title, userId, description, imageUrl, timestamp } = post;
   const [imageLoaded, setImageLoaded] = useState(false);
   const imageRef = useRef();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Date and time
+  const date = new Date(timestamp.seconds * 1000).toLocaleDateString();
+  const time = new Date(timestamp.seconds * 1000).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
   useEffect(() => {
     const fetchPost = async () => {
       // Get user
@@ -49,7 +55,13 @@ function PostItem({ post, id }) {
           <p className="font-semibold">{title}</p>
           <p className="text-gray-500 text-sm mb-1">@{user.name}</p>
           <div className="h-0.5 w-1/3 bg-gray-200 mb-2"></div>
-          <p className="text-base">{description.slice(0, 25)} . . .</p>
+          {description ? (
+            <p className="text-base">{description.slice(0, 25)} . . .</p>
+          ) : null}
+          <div className="flex space-x-2 text-xs text-gray-500 mt-4">
+            <span>{time}</span>
+            <span>{date}</span>
+          </div>
         </div>
       </Link>
 

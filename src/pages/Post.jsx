@@ -1,10 +1,10 @@
 import { useEffect, useState, useContext } from 'react';
-import firestoreDB from '../firebase.config';
 import { getDoc, doc, deleteDoc } from 'firebase/firestore';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import CommentsList from '../components/CommentsList';
 import CommentForm from '../components/CommentForm';
+import firestoreDB from '../firebase.config';
 import { auth } from '../firebase.config';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import { SignedContext } from '../context/SignedContext';
@@ -30,12 +30,20 @@ function Post() {
       setUser(userSnap.data());
 
       setLoading(false);
+      // MAKE SURE IF THE PHOTO IS PRIVATE, IT WILL APPEAR ONLY TO THE OWNER.
 
+      if (docSnap.data().private) {
+        if (auth.currentUser.uid !== docSnap.data().userId) {
+          navigate('/');
+        }
+      }
+
+      // ALLOW EDITING AND DELETING
       if (auth.currentUser?.uid === docSnap.data().userId) setAuthorized(true);
     };
 
     fetchPost();
-  }, [params.id]);
+  }, [params.id, navigate]);
 
   const onDelete = async (postid) => {
     const docRef = doc(firestoreDB, 'posts', postid);
@@ -64,7 +72,6 @@ function Post() {
             <div className="flex justify-end mb-2 space-x-4">
               <Link
                 to={`/edit-moment/${post.id}`}
-                onClick={onDelete}
                 className="hover:text-pTeal-200 text-xl"
               >
                 <FaEdit />
