@@ -27,7 +27,7 @@ function SignIn() {
 
       toast.success('Signed in successfully');
     } catch (err) {
-      toast.error(err.message);
+      toast.error('Something went wrong please try again.');
     }
   };
 

@@ -85,7 +85,3 @@ function SignIn() {
 }
 
 export default SignIn;
-
-{
-  /* <div className="flex items-center justify-center h-screen bg-gradient-to-r from-pTeal-200 to-pGreen"> */
-}

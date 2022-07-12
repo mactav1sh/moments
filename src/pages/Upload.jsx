@@ -79,7 +79,7 @@ function Upload() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-beige-200">
       <div className="flex max-w-6xl bg-beige-100 shadow-lg">
-        {/* DRAG AND DROP ZONE / PREVIEW ZONE */}
+        {/* DRAG AND DROP ZONE / PREVIEW ZONE - WILL BE IMPLEMENTED SOON */}
 
         <div className="bg-brick-pattern hidden md:flex md:flex-col md:items-center md:justify-center w-[28rem] md:space-y-2 ">
           <p className="text-beige-100 font-semibold text-5xl tracking-wider">

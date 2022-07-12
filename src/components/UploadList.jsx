@@ -52,7 +52,7 @@ function UploadList() {
 
   if (loading) return <h1>Loading...</h1>;
 
-  if (posts.length < 1) return <p>You have no posts yet</p>;
+  if (posts.length < 1) return <p className="mt-6">You have no posts yet</p>;
 
   return (
     <div className="self-start flex flex-col space-y-5 mt-10 w-full">

@@ -11,11 +11,7 @@ function CommentItem({ comment }) {
   const [user, setUser] = useState(null);
   const { deleteComment } = useContext(CommentsContext);
 
-  // const fullDate = new Date(comment?.data.timestamp.seconds * 1000)
-  //   .toLocaleString()
-  //   .split(', ');
-  // const [date, time] = fullDate;
-
+  // DATE AND TIME
   const date = new Date(
     comment?.data.timestamp.seconds * 1000
   ).toLocaleDateString();

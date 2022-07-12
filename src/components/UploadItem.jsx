@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function UploadItem({ post }) {
+  // DATE AND TIME
   const date = new Date(
     post?.data.timestamp.seconds * 1000
   ).toLocaleDateString();
-
   const time = new Date(post?.data.timestamp.seconds * 1000).toLocaleTimeString(
     [],
     {

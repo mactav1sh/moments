@@ -1,11 +1,10 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { IoDiamondSharp } from 'react-icons/io5';
 import { SignedContext } from '../context/SignedContext';
 import { auth } from '../firebase.config';
 
 function Navigation() {
-  // const [selected, setSelected] = useState('/');
   const { signedIn } = useContext(SignedContext);
 
   const location = useLocation();
