@@ -1,6 +1,6 @@
 # Getting Started
 
-Moments is a social media web app for sharing your moments with other people from all over the world and commenting on each others moments.
+[Moments](https://moments-delta.vercel.app/) is a social media web app for sharing your moments with other people from all over the world and commenting on each others moments.
 
 ## Available Scripts
 
