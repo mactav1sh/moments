@@ -55,14 +55,8 @@ function CommentItem({ comment }) {
       <p className="max-w-xs">{comment.data.text}</p>
 
       <div className="flex space-x-2 text-xs justify-end mt-2 mr-2 text-gray-500">
-        {!time || !date ? (
-          <span>Just now</span>
-        ) : (
-          <>
-            <span>{time}</span>
-            <span>{date}</span>
-          </>
-        )}
+        <span>{time !== 'Invalid Date' ? time : 'Just now'}</span>
+        <span>{date !== 'Invalid Date' ? date : ''}</span>
       </div>
       {/* EDIT AND DELETE */}
 
